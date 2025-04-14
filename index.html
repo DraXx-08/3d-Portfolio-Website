@@ -206,7 +206,71 @@
       animation: fadeInUp 0.8s ease-out forwards;
     }
 
+    /* Vector Background for About Section */
+    .about-vector-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      opacity: 0.1;
+      overflow: hidden;
+    }
+
+    .about-vector-bg svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .about-vector-bg path {
+      stroke: white;
+      stroke-width: 1;
+      fill: none;
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: draw 30s linear infinite;
+    }
+
+    .about-vector-bg circle {
+      fill: white;
+      opacity: 0.3;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .about-vector-bg circle:nth-child(1) {
+      animation-delay: 0s;
+      transform: translate(20%, 30%);
+    }
+
+    .about-vector-bg circle:nth-child(2) {
+      animation-delay: 1s;
+      transform: translate(70%, 60%);
+    }
+
+    .about-vector-bg circle:nth-child(3) {
+      animation-delay: 2s;
+      transform: translate(40%, 80%);
+    }
+
+    @keyframes draw {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) translateX(0);
+      }
+      50% {
+        transform: translateY(-20px) translateX(10px);
+      }
+    }
+
     .about-content {
+      position: relative;
+      z-index: 1;
       max-width: 800px;
       margin: 0 auto;
       text-align: center;
@@ -748,7 +812,7 @@
 
   <section class="hero">
     <video id="background-video" autoplay muted loop playsinline>
-      <source src="Timeline 1.mp4" type="video/mp4" />
+      <source src="Hero_main.mp4" type="video/mp4" />
     </video>
     <div class="hero-content">
       <h1>Hello, I'm</h1>
@@ -764,9 +828,24 @@
   </section>
 
   <section id="about" class="section">
+    <!-- Vector Background -->
+    <div class="about-vector-bg">
+      <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+        <!-- Abstract path elements -->
+        <path d="M100,100 C200,200 300,100 400,200 C500,300 600,200 700,300 C800,400 900,300 900,500" />
+        <path d="M50,800 C150,700 250,800 350,700 C450,600 550,700 650,600 C750,500 850,600 950,500" />
+        <path d="M900,100 Q950,150 900,200 Q850,250 900,300 Q950,350 900,400 Q850,450 900,500" />
+        
+        <!-- Floating circles -->
+        <circle cx="20%" cy="30%" r="15" />
+        <circle cx="70%" cy="60%" r="10" />
+        <circle cx="40%" cy="80%" r="8" />
+      </svg>
+    </div>
+    
     <h2 class="section-title">About Me</h2>
     <div class="about-content">
-      <img src="Photo.jpg" alt="Dakshat Jain" class="profile-photo">
+      <img src="Videos/Photo.jpg" alt="Dakshat Jain" class="profile-photo">
       <p class="about-text">
         I specialize in creating stunning 3D visuals and animations using industry-standard tools. 
         With a passion for photorealistic rendering and motion design, I bring creative concepts to life 
@@ -793,21 +872,20 @@
       <div class="education">
         <div class="education-card">
           <h4>Bachelor's Degree</h4>
-          <p>3D Animation & Visual Effects</p>
-          <p>XYZ University</p>
-          <p>2018 - 2022</p>
+          <p>Computer Science</p>
+          <p>Fr.Crce,Mumbai</p>
+          <p>2024-2028</p>
         </div>
         <div class="education-card">
-          <h4>Advanced Certification</h4>
-          <p>Blender Masterclass</p>
-          <p>CG Spectrum</p>
-          <p>2021</p>
+          <h4>Senior Secondary</h4>
+          <p>Science</p>
+          <p>Svpv,Mira Road</p>
+          <p>2024</p>
         </div>
         <div class="education-card">
-          <h4>Workshop</h4>
-          <p>Cinematic Lighting</p>
-          <p>School of Motion</p>
-          <p>2022</p>
+          <h4>3D Animation & Blender</h4>
+          <p>YouTube Tutorials & Personal Projects</p>
+          <p>2024 – Present</p>
         </div>
       </div>
       
@@ -837,10 +915,9 @@
     <div class="projects-grid">
       <div class="project" data-index="0">
         <div class="project-media">
-          <video class="project-video" autoplay muted loop playsinline data-duration>
+          <video class="project-video" autoplay muted loop playsinline>
             <source src="TwT.mp4" type="video/mp4" />
           </video>
-          
         </div>
         <div class="project-info">
           <h3 class="project-title">Client Project #1</h3>
@@ -859,8 +936,8 @@
       
       <div class="project" data-index="1">
         <div class="project-media">
-          <video class="project-video" autoplay muted loop playsinline data-duration>
-            <source src="Timeline 1.mp4" type="video/mp4" />
+          <video class="project-video" autoplay muted loop playsinline>
+            <source src="Hero.mp4" type="video/mp4" />
           </video>
         </div>
         <div class="project-info">
@@ -880,7 +957,7 @@
       
       <div class="project" data-index="2">
         <div class="project-media">
-          <video class="project-video" autoplay muted loop playsinline data-duration>
+          <video class="project-video" autoplay muted loop playsinline>
             <source src="Jrd.mp4" type="video/mp4" />
           </video>
         </div>
@@ -902,7 +979,7 @@
       <!-- New Project Added -->
       <div class="project" data-index="3">
         <div class="project-media">
-          <video class="project-video" autoplay muted loop playsinline data-duration>
+          <video class="project-video" autoplay muted loop playsinline>
             <source src="2.mp4" type="video/mp4" />
           </video>
         </div>
@@ -944,8 +1021,7 @@
   <footer>
     <p>&copy; 2025 Dakshat Jain. All rights reserved.</p>
   </footer>
-
-  <script>
+<script>
     // Mute toggle functionality
     const backgroundVideo = document.getElementById('background-video');
     const unmuteBtn = document.getElementById('unmuteBtn');
