@@ -881,7 +881,7 @@
       <div class="project" data-index="2">
         <div class="project-media">
           <video class="project-video" autoplay muted loop playsinline data-duration>
-            <source src="jrd.mp4" type="video/mp4" />
+            <source src="Jrd.mp4" type="video/mp4" />
           </video>
         </div>
         <div class="project-info">
@@ -1065,6 +1065,37 @@
   }
 
   window.onload = typeWriter;
+    // Video Play/Pause based on visibility
+const handleVideoVisibility = (entries) => {
+  entries.forEach(entry => {
+    const video = entry.target;
+    if (entry.isIntersecting) {
+      video.play().catch(e => console.log("Autoplay prevented:", e));
+    } else {
+      video.pause();
+    }
+  });
+};
+
+// Set up Intersection Observer for videos
+const videoObserver = new IntersectionObserver(handleVideoVisibility, {
+  threshold: 0.5, // When 50% of video is visible
+  rootMargin: '0px 0px -100px 0px' // Small negative margin at bottom
+});
+
+// Observe all videos
+document.querySelectorAll('video').forEach(video => {
+  // Ensure videos are muted for autoplay (required by most browsers)
+  video.muted = true;
+  videoObserver.observe(video);
+  
+  // For project videos - add play/pause on click
+  if(video.closest('.project-media')) {
+    video.addEventListener('click', () => {
+      video.paused ? video.play() : video.pause();
+    });
+  }
+});
   </script>
 </body>
 </html>
