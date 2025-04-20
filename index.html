@@ -1338,11 +1338,14 @@ header {
     const unmuteBtn = document.getElementById('unmuteBtn');
     
     unmuteBtn.addEventListener('click', () => {
-      backgroundVideo.muted = !backgroundVideo.muted;
-      unmuteBtn.innerHTML = backgroundVideo.muted 
-        ? '<i class="fas fa-volume-up"></i> Unmute' 
-        : '<i class="fas fa-volume-mute"></i> Mute';
-    });
+  if (backgroundVideo.muted) {
+    backgroundVideo.muted = false;
+    // Pause and resume to trigger user interaction
+    backgroundVideo.pause();
+    backgroundVideo.play().catch(e => console.error(e));
+  } else {
+    backgroundVideo.muted = true;
+  }
     
     // Make "View My Work" button scroll to projects
     document.getElementById('view-work-btn').addEventListener('click', () => {
@@ -1454,16 +1457,24 @@ header {
     window.onload = typeWriter;
     
     // Video Play/Pause based on visibility
-    const handleVideoVisibility = (entries) => {
-      entries.forEach(entry => {
-        const video = entry.target;
-        if (entry.isIntersecting) {
-          video.play().catch(e => console.log("Autoplay prevented:", e));
+// In the Intersection Observer callback
+const handleVideoVisibility = (entries) => {
+  entries.forEach(entry => {
+    const video = entry.target;
+    if (entry.isIntersecting) {
+      video.muted = true; // Explicitly mute before play
+      video.play().catch(e => {
+        if (e.name === 'AbortError') {
+          console.log('Playback aborted:', e.message);
         } else {
-          video.pause();
+          console.error('Playback failed:', e);
         }
       });
-    };
+    } else {
+      video.pause();
+    }
+  });
+};
 
     // Set up Intersection Observer for videos
     const videoObserver = new IntersectionObserver(handleVideoVisibility, {
